@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block inicio %}
+
+    <title> Crear Equipo </title>
+
+    <div class="b-example-divider">
+     <h1 class="text-center">
+        <svg class="bi me-2" width="40" height="32">
+            <use xlink:href="#bi bi-lightning-charge"/>
+        </svg>
+        Ingreso Cliente
+    </h1>
+    </div>
+    <form class="text-center py-lg-3 " method="post">
+
+        {% csrf_token %}
+        {{ cliente.as_p }}
+        <input type="submit" value="Guardar Datos"/>
+    </form>
+
+{% endblock %}

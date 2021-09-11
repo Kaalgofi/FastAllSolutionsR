@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block inicio %}
+    <title>Modificar Ciudad</title>
+
+    <div class="b-example-divider">
+        <h1 class="text-center">
+            <svg class="bi me-2" width="40" height="32">
+                <use xlink:href="#bi bi-pencil-square"/>
+            </svg>
+            Modificar.
+        </h1>
+    </div>
+
+
+    <form class="text-center py-lg-3 " method="post">
+        {% csrf_token %}
+        {{ ciudad1.as_p }}
+
+        <input type="submit" value="Modificar Datos"/>
+    </form>
+
+
+{% endblock %}
