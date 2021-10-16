@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+
+
+
+{% block login %}
+
+
+        <div class="row">
+            <div class="col-xl-9 col-lg-10">
+
+                    <form class="form-box" method="post" action="{% url 'login' %}">
+                        <h1 class="form-title">Sistema Fast All Solutions</h1>
+                        <h5 class="form-title">Iniciar Sesion</h5>
+                        {% csrf_token %}
+
+                        <div>
+                            <td>{{ form.username.label_tag }}</td>
+                            <td>{{ form.username }}</td>
+                        </div>
+                        <div>
+                            <td>{{ form.password.label_tag }}</td>
+                            <td>{{ form.password }}</td>
+                        </div>
+
+                        <div>
+                            <input type="submit" value="Ingreso de Sistema"/>
+                            <input type="hidden" name="next" value="{{ next }}"/>
+                        </div>
+                    </form>
+
+            </div>
+        </div>
+
+
+{% endblock %}

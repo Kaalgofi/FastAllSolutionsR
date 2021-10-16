@@ -104,7 +104,7 @@
         <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
     </symbol>
 
-     <symbol id="bi bi-pencil-square" viewBox="0 0 16 16">
+    <symbol id="bi bi-pencil-square" viewBox="0 0 16 16">
         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
         <path fill-rule="evenodd"
               d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
@@ -115,108 +115,156 @@
               d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
     </symbol>
 
+    <symbol id="bi bi-search" viewBox="0 0 16 16">
+        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+    </symbol>
+
 </svg>
+{% if user.is_authenticated %}
+    <main>
+        <div class="b-example-divider text-center">
+            <h1>Sistema "Fast All Solutions" </h1>
+        </div>
 
-<main>
-    <div class="b-example-divider text-center">
-        <h1>Sistema "Fast All Solutions" </h1>
-    </div>
+        <nav class="py-4 bg-light border-bottom">
+            <div class="px-3 py-2 bg-dark text-white">
+                <div class="dropdown">
+                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                        <a href="/"
+                           class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-white text-decoration-none">
+                            <svg class="bi me-2" width="40" height="32">
+                                <use xlink:href="#bi bi-lightning-charge"/>
+                            </svg>
+                            <span class="fs-2 text-white font-monospace ">"Fast All Solutions"</span>
+                        </a>
+                        <a href="#"
+                           class="nav-link text-white"
+                           id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg class="bi d-block mx-auto mb-1" width="24" height="24">
+                                <use xlink:href="#bi bi-person"/>
+                            </svg>
+                            Cliente
+                        </a>
+                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
+                            <li><a class="dropdown-item" href="{% url 'consultar_cliente' %}">Cliente</a></li>
+                            <li><a class="dropdown-item" href="{% url 'consultar_empleado' %}">Empleado</a>
+                            </li>
+                        </ul>
 
-    <nav class="py-4 bg-light border-bottom">
-        <div class="px-3 py-2 bg-dark text-white">
-            <div class="dropdown">
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <a href="/"
-                       class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-white text-decoration-none">
-                        <svg class="bi me-2" width="40" height="32">
-                            <use xlink:href="#bi bi-lightning-charge"/>
-                        </svg>
-                        <span class="fs-2 text-white font-monospace ">"Fast All Solutions"</span>
-                    </a>
-                    <a href="#"
-                       class="nav-link text-white"
-                       id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-                            <use xlink:href="#bi bi-person"/>
-                        </svg>
-                        Cliente
-                    </a>
-                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
-                        <li><a class="dropdown-item" href="{% url 'consultar_cliente' %}">Cliente</a></li>
-                        <li><a class="dropdown-item" href="{% url 'consultar_empleado' %}">Empleado</a>
-                        </li>
-                    </ul>
+                        <a href="#"
+                           class="nav-link text-white"
+                           id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg class="bi d-block mx-auto mb-1" width="24" height="24">
+                                <use xlink:href="#bi bi-cart-plus"/>
+                            </svg>
+                            Producto
+                        </a>
+                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
+                            <li><a class="dropdown-item" href="{% url 'consultar_producto' %}">Productos</a></li>
+                            <li><a class="dropdown-item" href="{% url 'consultar_categoria' %}">Categorias</a>
+                            </li>
+                        </ul>
 
-                    <a href="#"
-                       class="nav-link text-white"
-                       id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-                            <use xlink:href="#bi bi-cart-plus"/>
-                        </svg>
-                        Producto
-                    </a>
-                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
-                        <li><a class="dropdown-item" href="{% url 'consultar_producto' %}">Productos</a></li>
-                        <li><a class="dropdown-item" href="{% url 'consultar_categoria' %}">Categorias</a>
-                        </li>
-                    </ul>
+                        <a href="#"
+                           class="nav-link text-white"
+                           id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg class="bi d-block mx-auto mb-1" width="24" height="24">
+                                <use xlink:href="#bi bi-receipt-cutoff"/>
+                            </svg>
+                            Factura
+                        </a>
+                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
+                            <li><a class="dropdown-item" href="{% url 'consultar_factura' %}">Factura</a></li>
+                            <li><a class="dropdown-item" href="{% url 'consultar_detalle_factura' %}">Detalle
+                                Factura</a>
+                            <li><a class="dropdown-item" href="{% url 'consultar_forma_de_pago' %}">Forma De Pago</a>
+                            </li>
+                        </ul>
 
-                    <a href="#"
-                       class="nav-link text-white"
-                       id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-                            <use xlink:href="#bi bi-receipt-cutoff"/>
-                        </svg>
-                        Factura
-                    </a>
-                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
-                        <li><a class="dropdown-item" href="{% url 'consultar_factura' %}">Factura</a></li>
-                        <li><a class="dropdown-item" href="{% url 'consultar_detalle_factura' %}">Detalle Factura</a>
-                        <li><a class="dropdown-item" href="{% url 'consultar_forma_de_pago' %}">Forma De Pago</a>
-                        </li>
-                    </ul>
-
-                    <a href="#"
-                       class="nav-link text-white"
-                       id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-                            <use xlink:href="#bi bi-tools"/>
-                        </svg>
-                        Proveedor
-                    </a>
-                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
-                        <li><a class="dropdown-item" href="{% url 'consultar_proveedor' %}">Provedor</a></li>
-                        <li><a class="dropdown-item" href="{% url 'consultar_ciudad' %}">Ciudad</a>
-                        <li><a class="dropdown-item" href="{% url 'consultar_tipo_de_documento' %}">Tipo De
-                            Documento</a>
-                        </li>
-                    </ul>
+                        <a href="#"
+                           class="nav-link text-white"
+                           id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg class="bi d-block mx-auto mb-1" width="24" height="24">
+                                <use xlink:href="#bi bi-tools"/>
+                            </svg>
+                            Proveedor
+                        </a>
+                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
+                            <li><a class="dropdown-item" href="{% url 'consultar_proveedor' %}">Provedor</a></li>
+                            <li><a class="dropdown-item" href="{% url 'consultar_ciudad' %}">Ciudad</a>
+                            <li><a class="dropdown-item" href="{% url 'consultar_tipo_de_documento' %}">Tipo De
+                                Documento</a>
+                            </li>
+                        </ul>
 
 
-                    <a href="#"
-                       class="nav-link text-white"
-                       id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-                            <use xlink:href="#bi bi-cart-x"/>
-                        </svg>
-                        Devolucion
-                    </a>
-                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
-                        <li><a class="dropdown-item" href="{% url 'consultar_devolucion' %}">Devoluciones</a></li>
-                    </ul>
+                        <a href="#"
+                           class="nav-link text-white"
+                           id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg class="bi d-block mx-auto mb-1" width="24" height="24">
+                                <use xlink:href="#bi bi-cart-x"/>
+                            </svg>
+                            Devolucion
+                        </a>
+                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
+                            <li><a class="dropdown-item" href="{% url 'consultar_devolucion' %}">Devoluciones</a></li>
+                        </ul>
+
+                        <a href="#"
+                           class="nav-link text-white"
+                           id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg class="bi d-block mx-auto mb-1" width="24" height="24">
+                                <use xlink:href="#bi bi-person"/>
+                            </svg>
+                            otros
+                        </a>
+                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
+                            <li><a class="dropdown-item" href="{% url 'consultar_equipo' %}">Equipo</a></li>
+                            <li><a class="dropdown-item" href="{% url 'consultar_detalle_matenimiento' %}">Detalle Mantenimiento</a>
+                            </li>
+                             <li><a class="dropdown-item" href="{% url 'consultar_cargo' %}">Cargo</a></li>
+                             <li><a class="dropdown-item" href="{% url 'consultar_mantenimiento' %}">Mantenimiento</a></li>
+                             <li><a class="dropdown-item" href="{% url 'consultar_servicio' %}">Servicio</a></li>
+                        </ul>
+
+                        <a href="#"
+                           class="nav-link text-white"
+                           id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg class="bi d-block mx-auto mb-1" width="24" height="24">
+                                <use xlink:href="#bi bi-cart-x"/>
+                            </svg>
+                            Hola {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
+                            <li><a class="dropdown-item" href="{% url 'login' %}">login</a></li>
+
+                            <li><a class="dropdown-item" href="#">singup</a></li>
+
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">salir</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            </div>
-    </nav>
+        </nav>
 
 
-</main>
+    </main>
 
-{% load static %}
-<script src="{% static '/dist/js/bootstrap.bundle.min.js' %}"></script>
-}
-{% block inicio %}
-{% endblock %}
+    {% load static %}
+    <script src="{% static '/dist/js/bootstrap.bundle.min.js' %}"></script>
+    <div class="b-example-divider py-lg-3"></div>
+    {% block inicio %}
+    {% endblock %}
+{% else %}
+
+
+
+
+    {% block login %}
+        <p>NO estas logoneado</p>
+    {% endblock %}
+
+{% endif %}
 </body>
 <div class="b-example-divider py-lg-3"></div>
 </html>

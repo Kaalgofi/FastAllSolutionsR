@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block inicio %}
+
+    <div class="b-example-divider ">
+        <h1 class="text-center fst-italic">
+            <svg class="bi me-2" width="40" height="32">
+                <use xlink:href="#bi bi-pin"/>
+            </svg>
+            "Listar Servicio"
+
+        </h1>
+    </div>
+
+
+    <div class="d-flex justify-content-between py-lg-4 fst-italic">
+        <div>
+            {#            left#}
+            <a href='{% url 'crear_servicio' %}' class="btn btn-primary btn-lg" type="button">
+                <svg class="bi me-2" width="32" height="20">
+                    <use xlink:href="#bi bi-plus-square-fill"/>
+                </svg>
+                Crear servicio </a>
+        </div>
+
+        <div>
+            {#            right#}
+            <form action="{% url 'consultar_servicio' %}" method="post">
+                {% csrf_token %}
+                {{ buscarnombre_de_servicios.as_table }}
+                <button type="submit">
+                    <svg class="bi me-2" width="40" height="20">
+                        <use xlink:href="#bi bi-search"/>
+                    </svg>
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+
+
+    <div class="table-responsive fst-italic">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th scope="col">Nombre_de_servicios</th>
+                <th scope="col">precios</th>
+                <th scope="col">Fecha Creacion</th>
+                <th scope="col">Fecha Modificacion</th>
+                <th scope="col">Modificar</th>
+                <th scope="col">Eliminar</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for servicio in servicio_ls %}
+                {% if servicio.estado == 1 %}
+                    <tr>
+                        <td> {{ servicio.nombre_de_servicios }} </td>
+                        <td> {{ servicio.precios }} </td>
+                        <td> {{ servicio.fecha_creacion | date }} </td>
+                        <td> {{ servicio.fecha_modificacion | date }} </td>
+                        <td><a href='{% url 'modificar_servicio' servicio.id %}'>
+                            <svg class="bi me-2" width="32" height="20">
+                                <use xlink:href="#bi bi-pencil-square"/>
+                            </svg>
+                        </a></td>
+                        <td><a href='{% url 'eliminar_servicio' servicio.id %}'>
+                            <svg class="bi me-2" width="32" height="20">
+                                <use xlink:href="#bi bi-trash"/>
+                            </svg>
+                        </a></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+{% endblock %}

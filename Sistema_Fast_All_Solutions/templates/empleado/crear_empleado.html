@@ -1,10 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block inicio %}
 
-</body>
-</html>
+    <div class="b-example-divider">
+     <h1 class="text-center fst-italic">
+        <svg class="bi me-2" width="40" height="32">
+            <use xlink:href="#bi bi-pin"/>
+        </svg>
+        Ingreso empleado
+    </h1>
+    </div>
+
+    <div class="container d-flex align-items-center justify-content-center vh-100 fst-italic text-black bg-light">
+         <div class="row">
+             <div class="col-xl-9 col-lg-10">
+                 <table class="table table-striped table-sm">
+                    <form class="text-center py-lg-3 " method="post">
+                         <h1>Formulario</h1>
+                         {% csrf_token %}
+                         {{ empleado.as_p }}
+                        <input class="fst-italic" type="submit" value="Guardar Datos"/>
+                    </form>
+                 </table>
+            </div>
+         </div>
+    </div>
+
+{% endblock %}
