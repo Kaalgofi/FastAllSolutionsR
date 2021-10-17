@@ -6,6 +6,7 @@ class Buscar_cedula(forms.Form):
     identificacion = forms.CharField(label="identificacion",required=True)
 
 class Buscar_por_fecha(forms.Form):
+    #precio = forms.CharField(label="precio", required=True)
     desde = forms.DateTimeField(label="Desde", required=True, widget=forms.DateInput(format=('%Y-%m-%d'),
                                                                                      attrs={
                                                                                          'placeholder': 'Select a date',
@@ -15,6 +16,7 @@ class Buscar_por_fecha(forms.Form):
                                                                                      attrs={
                                                                                          'placeholder': 'Select a date',
                                                                                          'type': 'date', 'size': 40}))
+
 
 
 class Buscarpornombre_cliente(forms.Form):
@@ -102,17 +104,30 @@ class Buscarporfecha_facturacion(forms.Form):
 class FacturaForm(forms.ModelForm):
     class Meta:
         model = factura
-        fields = ['fecha_facturacion','total_factura','iva']
+        fields = ['fecha_facturacion','total_factura','iva','producto_v']
+        widgets = {
+            'fecha_facturacion': forms.DateInput(format=('%Y-%m-%d'),
+                                               attrs={'placeholder': 'Select a date',
+                                                      'type': 'date', 'size': 30}),
+        }
 
 
+class Buscarproducto_v(forms.Form):
+    herencia = forms.CharField(label="Buscar producto",required=True)
 
-class Buscarpordescripcion(forms.Form):
-    descripcion = forms.CharField(label="descripcion", required=True)
+
+class Buscarporfecha_ingreso(forms.Form):
+    fecha_ingreso = forms.CharField(label="fecha_ingreso", required=True)
 
 class ProductoForm(forms.ModelForm):
     class Meta:
         model = producto
         fields = ['descripcion','precio_venta','precio_costo','stock','fecha_ingreso']
+        widgets = {
+            'fecha_ingreso': forms.DateInput(format=('%Y-%m-%d'),
+                                           attrs={'placeholder': 'Select a date',
+                                                  'type': 'date', 'size': 30}),
+        }
 
 
 

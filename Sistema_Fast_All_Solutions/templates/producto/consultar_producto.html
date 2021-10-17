@@ -26,7 +26,7 @@
             {#            right#}
             <form action="{% url 'consultar_producto' %}" method="post">
                 {% csrf_token %}
-                {{ buscar_fecha.as_table }}
+                {{ buscarfecha_ingreso.as_table }}
                 <button type="submit">
                     <svg class="bi me-2" width="40" height="20">
                         <use xlink:href="#bi bi-search"/>
@@ -58,11 +58,11 @@
             {% for prod in producto_ls %}
                 {% if prod.estado == 1 %}
                     <tr>
-                        <td> {{ prod.descripcion}} </td>
-                        <td> {{ prod.precio_venta}} </td>
-                        <td> {{ prod.precio_costo}} </td>
-                        <td> {{ prod.stock}} </td>
-                        <td> {{ prod.fecha_ingreso}} </td>
+                        <td> {{ prod.descripcion }} </td>
+                        <td> {{ prod.precio_venta }} </td>
+                        <td> {{ prod.precio_costo }} </td>
+                        <td> {{ prod.stock }} </td>
+                        <td> {{ prod.fecha_ingreso }} </td>
                         <td> {{ prod.fecha_creacion | date }} </td>
                         <td> {{ prod.fecha_modificacion | date }} </td>
                         <td><a href='{% url 'modificar_producto' prod.id %}'>

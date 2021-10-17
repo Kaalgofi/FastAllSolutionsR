@@ -171,26 +171,6 @@ class forma_de_pago(models.Model):
         return "{}".format(self.descripcion_forma_de_pago)
 
 
-class factura(models.Model):
-    fecha_facturacion = models.DateTimeField()
-    total_factura = models.DecimalField(max_digits=7, decimal_places=2)
-    iva = models.DecimalField(max_digits=7, decimal_places=2)
-
-    usuario_creacion = models.CharField(max_length=15)
-    usuario_modificacion = models.CharField(max_length=15)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
-    fecha_modificacion = models.DateTimeField(auto_now=True)
-    estado = models.IntegerField(default=1)
-
-    class Meta:
-        db_table = 'tp_factura'
-        verbose_name = "Factura"
-        verbose_name_plural = "Factura"
-
-    def __str__(self):
-        return "{}".format(self.fecha_facturacion, " ", self.total_factura)
-
-
 class producto(models.Model):
     descripcion = models.CharField(max_length=100)
     precio_venta = models.DecimalField(max_digits=7, decimal_places=2)
@@ -211,6 +191,29 @@ class producto(models.Model):
 
     def __str__(self):
         return "{}".format(self.descripcion, " ", self.fecha_ingreso)
+
+class factura(models.Model):
+    fecha_facturacion = models.DateTimeField()
+    total_factura = models.DecimalField(max_digits=7, decimal_places=2)
+    iva = models.DecimalField(max_digits=7, decimal_places=2)
+    producto_v = models.ForeignKey(producto,on_delete=models.CASCADE, related_name='productos')
+
+    usuario_creacion = models.CharField(max_length=15)
+    usuario_modificacion = models.CharField(max_length=15)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_modificacion = models.DateTimeField(auto_now=True)
+    estado = models.IntegerField(default=1)
+
+    class Meta:
+        db_table = 'tp_factura'
+        verbose_name = "Factura"
+        verbose_name_plural = "Factura"
+
+    def __str__(self):
+        return "{}".format(self.fecha_facturacion, " ", self.total_factura)
+
+
+
 
 
 class detalle_factura(models.Model):

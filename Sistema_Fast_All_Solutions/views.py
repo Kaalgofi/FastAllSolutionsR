@@ -1,13 +1,14 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from .forms import ClienteForm, ProveedorForm, CiudadForm, CargoForm, Detalle_MantenimientoForm, \
-    DevolucionForm, EmpleadoForm, EquipoForm, CategoriaForm, ProductoForm, ServicioForm, Forma_de_pagoForm, FacturaForm,\
-    MantenimientoForm, Detalle_facturaForm, Tipo_de_documentoForm, Buscarporfecha_devolucion, Buscarporfecha_retiro, Buscarporfecha_facturacion,\
-    Buscarpordescripcion, Buscarpordescripcion_forma_de_pago, Buscarpordescripcion_mantenimiento, Buscarpordescripcion_categoria, \
+from .forms import ClienteForm, ProveedorForm, CiudadForm, CargoForm, Detalle_MantenimientoForm, DevolucionForm, \
+    EmpleadoForm, EquipoForm, CategoriaForm, ProductoForm, ServicioForm, Forma_de_pagoForm, FacturaForm, \
+    MantenimientoForm,Detalle_facturaForm, Tipo_de_documentoForm, Buscarporfecha_devolucion, Buscarporfecha_retiro, Buscarporfecha_facturacion,\
+    Buscarporfecha_ingreso, Buscarpordescripcion_forma_de_pago,Buscarproducto_v, Buscarpordescripcion_mantenimiento, Buscarpordescripcion_categoria, \
     Buscarpornombre_cliente, Buscarpornombre_empleado, Buscarpornombre_equipo, Buscarpornombre_comercial, Buscarpornombre_servicios,\
     Buscarpornombre_cargo, Buscarpornombre_ciudad, Buscar_por_fecha, Buscarporcantidad, Buscarportipo_de_documento, Buscar_cedula
-from .models import cliente, ciudad, cargo, categoria, detalle_factura, detalle_mantenimiento, devolucion, empleado, equipo, factura, forma_de_pago, mantenimiento, producto, proveedor, servicio, tipo_de_documento
+from .models import cliente, ciudad, cargo, categoria, detalle_factura, detalle_mantenimiento, devolucion, empleado, equipo, factura,\
+    forma_de_pago, mantenimiento, producto, proveedor, servicio, tipo_de_documento
 # Create your views here.
 def login(request):
     return render(request, "index.html")
@@ -103,6 +104,7 @@ def crear_categoria (request):
 
     return render(request, "categoria/crear_categoria.html" , {'categoria': categoriaForm})
 
+@login_required(None, "", 'login')
 def consultar_categoria (request):
     buscarpordescripcion_categoria = Buscarpordescripcion_categoria()
 
@@ -122,6 +124,8 @@ def consultar_categoria (request):
           categoria_p = categoria.objects.all()
     return render(request, "categoria/consultar_categoria.html" , {'categoria_ls': categoria_p,'buscarpordescripcion_categoria':buscarpordescripcion_categoria})
 
+
+@login_required(None, "", 'login')
 def eliminar_categoria (request,id):
     if request.method == "POST":
         categorian = get_object_or_404(categoria, pk=id)
@@ -137,6 +141,7 @@ def eliminar_categoria (request,id):
     return render(request, "categoria/eliminar_categoria.html", {'categoriaform': categoriaForm})
 
 
+@login_required(None, "", 'login')
 def modificar_categoria (request,id):
     if request.method == "POST":
         categorian = get_object_or_404(categoria, pk=id)
@@ -155,6 +160,8 @@ def modificar_categoria (request,id):
 #------------------------------------------------------------------------------------------------#
 ##---------------- ciudad ------------##
 
+
+@login_required(None, "", 'login')
 def crear_ciudad (request):
     if request.method == "POST":
         ciudadForm = CiudadForm(request.POST)
@@ -168,6 +175,8 @@ def crear_ciudad (request):
 
     return render(request, "ciudad/crear_ciudad.html" , {'ciudad': ciudadForm})
 
+
+@login_required(None, "", 'login')
 def consultar_ciudad (request):
     buscarpornombre_ciudad = Buscarporfecha_devolucion()
 
@@ -187,6 +196,7 @@ def consultar_ciudad (request):
           ciudad_p = ciudad.objects.all()
     return render(request, "ciudad/consultar_ciudad.html" , {'ciudad_ls': ciudad_p,'buscarpornombre_ciudad':buscarpornombre_ciudad})
 
+@login_required(None, "", 'login')
 def eliminar_ciudad (request,id):
     if request.method == "POST":
         ciudadn = get_object_or_404(ciudad, pk=id)
@@ -201,7 +211,7 @@ def eliminar_ciudad (request,id):
         ciudadForm = CiudadForm(request.POST or None, instance=ciudadn)
     return render(request, "ciudad/eliminar_ciudad.html", {'ciudadform': ciudadForm})
 
-
+@login_required(None, "", 'login')
 def modificar_ciudad (request,id):
     if request.method == "POST":
         ciudadn = get_object_or_404(ciudad, pk=id)
@@ -220,6 +230,7 @@ def modificar_ciudad (request,id):
 #---------------------------------------------------------------------------------------------------#
 ##---------------- cliente ------------##
 
+@login_required(None, "", 'login')
 def crear_cliente (request):
     if request.method == "POST":
         clienteForm = ClienteForm(request.POST)
@@ -233,6 +244,8 @@ def crear_cliente (request):
 
     return render(request, "cliente/crear_cliente.html" , {'cliente': clienteForm})
 
+
+@login_required(None, "", 'login')
 def consultar_cliente (request):
     buscarcform = Buscar_cedula()
     cliente_p = None
@@ -247,6 +260,8 @@ def consultar_cliente (request):
 
     return render(request, "cliente/consultar_cliente.html" , {'cliente_ls': cliente_p,'buscarpornombre_cliente':buscarcform})
 
+
+@login_required(None, "", 'login')
 def eliminar_cliente (request,id):
     if request.method == "POST":
         clienten = get_object_or_404(cliente, pk=id)
@@ -262,6 +277,7 @@ def eliminar_cliente (request,id):
     return render(request, "cliente/eliminar_cliente.html", {'clienteform': clienteForm})
 
 
+@login_required(None, "", 'login')
 def modificar_cliente (request,id):
     if request.method == "POST":
         clienten = get_object_or_404(cliente, pk=id)
@@ -280,6 +296,7 @@ def modificar_cliente (request,id):
 #--------------------------------------------------------------------------------------------------#
 ##----------------detalle_factura------------##
 
+@login_required(None, "", 'login')
 def crear_detalle_factura (request):
     if request.method == "POST":
         detalle_facturaForm = Detalle_facturaForm(request.POST)
@@ -293,6 +310,7 @@ def crear_detalle_factura (request):
 
     return render(request, "detalle_factura/crear_detalle_factura.html" , {'detalle_factura': detalle_facturaForm})
 
+@login_required(None, "", 'login')
 def consultar_detalle_factura (request):
     buscarporcantidad = Buscarporcantidad()
     #buscarporfecha = Buscarporfecha()
@@ -312,6 +330,7 @@ def consultar_detalle_factura (request):
           detalle_factura_p = detalle_factura.objects.all()
     return render(request, "detalle_factura/consultar_detalle_factura.html" , {'detalle_factura_ls': detalle_factura_p,'buscarporcantidad':buscarporcantidad})
 
+@login_required(None, "", 'login')
 def eliminar_detalle_factura (request,id):
     if request.method == "POST":
         detalle_facturan = get_object_or_404(detalle_factura, pk=id)
@@ -327,6 +346,7 @@ def eliminar_detalle_factura (request,id):
     return render(request, "detalle_factura/eliminar_detalle_factura.html", {'detalle_facturaform': detalle_facturaForm})
 
 
+@login_required(None, "", 'login')
 def modificar_detalle_factura (request,id):
     if request.method == "POST":
         detalle_facturan = get_object_or_404(detalle_factura, pk=id)
@@ -345,6 +365,7 @@ def modificar_detalle_factura (request,id):
 #----------------------------------------------------------------------------------------#
 ##----------------detalle_mantenimiento------------##
 
+@login_required(None, "", 'login')
 def crear_detalle_mantenimiento (request):
     if request.method == "POST":
         detalle_mantenimientoForm = Detalle_MantenimientoForm(request.POST)
@@ -358,6 +379,7 @@ def crear_detalle_mantenimiento (request):
 
     return render(request, "detalle_mantenimiento/crear_detalle_mantenimiento.html" , {'detalle_mantenimiento': detalle_mantenimientoForm})
 
+@login_required(None, "", 'login')
 def consultar_detalle_mantenimiento (request):
     buscarpordescripcion_mantenimiento = Buscarpordescripcion_mantenimiento()
     #buscarporfecha = Buscarporfecha()
@@ -377,6 +399,8 @@ def consultar_detalle_mantenimiento (request):
           detalle_mantenimiento_p = detalle_mantenimiento.objects.all()
     return render(request, "detalle_mantenimiento/consultar_detalle_mantenimiento.html" , {'detalle_mantenimiento': detalle_mantenimiento_p,'buscarpordescripcion_mantenimiento':buscarpordescripcion_mantenimiento})
 
+
+@login_required(None, "", 'login')
 def eliminar_detalle_mantenimiento (request,id):
     if request.method == "POST":
         detalle_mantenimienton = get_object_or_404(detalle_mantenimiento, pk=id)
@@ -392,6 +416,7 @@ def eliminar_detalle_mantenimiento (request,id):
     return render(request, "detalle_mantenimiento/eliminar_detalle_mantenimiento.html", {'detalle_mantenimientoform': detalle_mantenimientoForm})
 
 
+@login_required(None, "", 'login')
 def modificar_detalle_mantenimiento (request,id):
     if request.method == "POST":
         detalle_mantenimienton = get_object_or_404(detalle_mantenimiento, pk=id)
@@ -411,6 +436,7 @@ def modificar_detalle_mantenimiento (request,id):
 
 ##---------------- empleado ------------##
 
+@login_required(None, "", 'login')
 def crear_empleado (request):
     if request.method == "POST":
         empleadoForm = EmpleadoForm(request.POST)
@@ -424,6 +450,7 @@ def crear_empleado (request):
 
     return render(request, "empleado/crear_empleado.html" , {'empleado': empleadoForm})
 
+@login_required(None, "", 'login')
 def consultar_empleado (request):
     buscarpornombre_empleado = Buscarpornombre_empleado()
     empleado_p = None
@@ -438,6 +465,8 @@ def consultar_empleado (request):
 
     return render(request, "empleado/consultar_empleado.html" , {'empleado_ls': empleado_p,'buscarpornombre_empleado':buscarpornombre_empleado})
 
+
+@login_required(None, "", 'login')
 def eliminar_empleado (request,id):
     if request.method == "POST":
         empleadon = get_object_or_404(empleado, pk=id)
@@ -453,6 +482,7 @@ def eliminar_empleado (request,id):
     return render(request, "empleado/eliminar_empleado.html", {'empleadoform': empleadoForm})
 
 
+@login_required(None, "", 'login')
 def modificar_empleado (request,id):
     if request.method == "POST":
         empleadon = get_object_or_404(empleado, pk=id)
@@ -472,6 +502,7 @@ def modificar_empleado (request,id):
 
 ##---------------- equipo ------------##
 
+@login_required(None, "", 'login')
 def crear_equipo (request):
     if request.method == "POST":
         equipoForm = EquipoForm(request.POST)
@@ -485,6 +516,8 @@ def crear_equipo (request):
 
     return render(request, "equipo/crear_equipo.html" , {'equipo': equipoForm})
 
+
+@login_required(None, "", 'login')
 def consultar_equipo (request):
     buscarpornombre_equipo = Buscarpornombre_equipo()
     #buscarporfecha = Buscarporfecha()
@@ -504,6 +537,8 @@ def consultar_equipo (request):
           equipo_p = equipo.objects.all()
     return render(request, "equipo/consultar_equipo.html" , {'equipo_ls': equipo_p, 'buscarpornombre_equipo':buscarpornombre_equipo})
 
+
+@login_required(None, "", 'login')
 def eliminar_equipo (request,id):
     if request.method == "POST":
         equipon = get_object_or_404(equipo, pk=id)
@@ -518,6 +553,8 @@ def eliminar_equipo (request,id):
         equipoForm = EquipoForm(request.POST or None, instance=equipon)
     return render(request, "equipo/eliminar_equipo.html", {'equipoform': equipoForm})
 
+
+@login_required(None, "", 'login')
 def modificar_equipo (request,id):
     if request.method == "POST":
         equipon = get_object_or_404(cliente, pk=id)
@@ -549,6 +586,7 @@ def crear_forma_de_pago (request):
 
     return render(request, "forma_de_pago/crear_forma_de_pago.html" , {'forma_de_pago': forma_de_pagoForm})
 
+@login_required(None, "", 'login')
 def consultar_forma_de_pago (request):
     buscarpordescripcion_forma_de_pago = Buscarpordescripcion_forma_de_pago()
     #buscarporfecha = Buscarporfecha()
@@ -568,6 +606,8 @@ def consultar_forma_de_pago (request):
           forma_de_pago_p = forma_de_pago.objects.all()
     return render(request, "forma_de_pago/consultar_forma_de_pago.html" , {'forma_de_pago_ls': forma_de_pago_p,'buscarpordescripcion_forma_de_pago':buscarpordescripcion_forma_de_pago})
 
+
+@login_required(None, "", 'login')
 def eliminar_forma_de_pago (request,id):
     if request.method == "POST":
         forma_de_pagon = get_object_or_404(forma_de_pago, pk=id)
@@ -582,7 +622,7 @@ def eliminar_forma_de_pago (request,id):
         forma_de_pagoForm = Forma_de_pagoForm(request.POST or None, instance=forma_de_pagon)
     return render(request, "forma_de_pago/eliminar_forma_de_pago.html", {'forma_de_pagoform': forma_de_pagoForm})
 
-
+@login_required(None, "", 'login')
 def modificar_forma_de_pago (request,id):
     if request.method == "POST":
         forma_de_pagon = get_object_or_404(forma_de_pago, pk=id)
@@ -600,6 +640,7 @@ def modificar_forma_de_pago (request,id):
 #----------------------------------------------------------------------------------------------#
 ##----------------mantenimiento ------------##
 
+@login_required(None, "", 'login')
 def crear_mantenimiento (request):
     if request.method == "POST":
         mantenimientoForm = MantenimientoForm(request.POST)
@@ -613,6 +654,8 @@ def crear_mantenimiento (request):
 
     return render(request, "mantenimiento/crear_mantenimiento.html" , {'mantenimiento': mantenimientoForm})
 
+
+@login_required(None, "", 'login')
 def consultar_mantenimiento (request):
     buscarporfecha_retiro = Buscarporfecha_retiro()
     #buscarporfecha = Buscarporfecha()
@@ -632,6 +675,7 @@ def consultar_mantenimiento (request):
           mantenimiento_p = mantenimiento.objects.all()
     return render(request, "mantenimiento/consultar_mantenimiento.html" , {'mantenimiento_ls': mantenimiento_p,'buscarporfecha_retiro':buscarporfecha_retiro})
 
+@login_required(None, "", 'login')
 def eliminar_mantenimiento (request,id):
     if request.method == "POST":
         mantenimienton = get_object_or_404(mantenimiento, pk=id)
@@ -646,7 +690,7 @@ def eliminar_mantenimiento (request,id):
         mantenimientoForm = MantenimientoForm(request.POST or None, instance=mantenimienton)
     return render(request, "mantenimiento/eliminar_mantenimiento.html", {'mantenimientoform': mantenimientoForm})
 
-
+@login_required(None, "", 'login')
 def modificar_mantenimiento (request,id):
     if request.method == "POST":
         mantenimienton = get_object_or_404(mantenimiento, pk=id)
@@ -664,6 +708,7 @@ def modificar_mantenimiento (request,id):
 #----------------------------------------------------------------------------------------------------------#
 #*##---------------- proveedor ------------##
 
+@login_required(None, "", 'login')
 def crear_proveedor (request):
     if request.method == "POST":
         proveedorForm = ProveedorForm(request.POST)
@@ -677,6 +722,7 @@ def crear_proveedor (request):
 
     return render(request, "proveedor/crear_proveedor.html" , {'proveedor': proveedorForm})
 
+@login_required(None, "", 'login')
 def consultar_proveedor (request):
     buscarpornombre_comercial = Buscarpornombre_comercial()
     #buscarporfecha = Buscarporfecha()
@@ -696,6 +742,8 @@ def consultar_proveedor (request):
           proveedor_p = proveedor.objects.all()
     return render(request, "proveedor/consultar_proveedor.html" , {'proveedor_ls': proveedor_p,'buscarpornombre_comercial':buscarpornombre_comercial})
 
+
+@login_required(None, "", 'login')
 def eliminar_proveedor (request,id):
     if request.method == "POST":
         proveedorn = get_object_or_404(proveedor, pk=id)
@@ -711,6 +759,7 @@ def eliminar_proveedor (request,id):
     return render(request, "proveedor/eliminar_proveedor.html", {'proveedorform': proveedorForm})
 
 
+@login_required(None, "", 'login')
 def modificar_proveedor (request,id):
     if request.method == "POST":
         proveedorn = get_object_or_404(cliente, pk=id)
@@ -728,6 +777,8 @@ def modificar_proveedor (request,id):
 #---------------------------------------------------------------------------------------------------#
 ##---------------- servicio ------------##
 
+
+@login_required(None, "", 'login')
 def crear_servicio (request):
     if request.method == "POST":
         servicioForm = ServicioForm(request.POST)
@@ -741,6 +792,8 @@ def crear_servicio (request):
 
     return render(request, "servicio/crear_servicio.html" , {'servicio': servicioForm})
 
+
+@login_required(None, "", 'login')
 def consultar_servicio (request):
     buscarpornombre_de_servicios = Buscarpornombre_servicios()
     #buscarporfecha = Buscarporfecha()
@@ -760,6 +813,7 @@ def consultar_servicio (request):
           servicio_p = servicio.objects.all()
     return render(request, "servicio/consultar_servicio.html" , {'servicio_ls': servicio_p,'buscarpornombre_de_servicios':buscarpornombre_de_servicios})
 
+@login_required(None, "", 'login')
 def eliminar_servicio (request,id):
     if request.method == "POST":
         servicion = get_object_or_404(servicio, pk=id)
@@ -775,6 +829,7 @@ def eliminar_servicio (request,id):
     return render(request, "servicio/eliminar_servicio.html", {'servicioform': servicioForm})
 
 
+@login_required(None, "", 'login')
 def modificar_servicio (request,id):
     if request.method == "POST":
         servicion = get_object_or_404(servicio, pk=id)
@@ -792,6 +847,7 @@ def modificar_servicio (request,id):
 ##TERMINADOS LOS VIEW##
 ##-------------- devolucion -------------##
 
+@login_required(None, "", 'login')
 def crear_devolucion (request):
     if request.method == "POST":
         devolucionForm = DevolucionForm(request.POST)
@@ -805,7 +861,7 @@ def crear_devolucion (request):
 
     return render(request, "devolucion/crear_devolucion.html",{'devolucion': devolucionForm})
 
-
+@login_required(None, "", 'login')
 def consultar_devolucion (request):
     buscarporfecha_devolucion = Buscarporfecha_devolucion()
 
@@ -824,6 +880,7 @@ def consultar_devolucion (request):
     return render(request, "devolucion/consultar_devolucion.html", {'devolucion_ls': devolucion_p,'buscarporfecha_devolucion ':buscarporfecha_devolucion} )
 
 
+@login_required(None, "", 'login')
 def eliminar_devolucion (request):
     if request.method == "POST":
         devoluciones = get_object_or_404(devolucion, pk=id)
@@ -838,6 +895,7 @@ def eliminar_devolucion (request):
 
     return render(request, "devolucion/eliminar_devolucion.html", {'devolucionForm': devolucionForm})
 
+@login_required(None, "", 'login')
 def modificar_devolucion (request):
     if request.method == "POST":
         devoluciones = get_object_or_404(devolucion, pk=id)
@@ -854,8 +912,12 @@ def modificar_devolucion (request):
     return render(request, "devolucion/modificar_devolucion.html", {'devolucionForm': devolucionForm})
 
 
+
+
+
 ##-------------- factura -------------##
 
+@login_required(None, "", 'login')
 def crear_factura (request):
     if request.method == "POST":
         facturaForm = FacturaForm(request.POST)
@@ -870,23 +932,25 @@ def crear_factura (request):
     return render(request, "factura/crear_factura.html", {'factura': facturaForm})
 
 
+@login_required(None, "", 'login')
 def consultar_factura (request):
-    buscarfechaform = Buscar_por_fecha()
+    buscarfecha_ingresoform = Buscarproducto_v()
     factura_p = None
 
     if request.method == "POST":
-        buscarfechaform = Buscar_por_fecha(request.POST or None)
-        if buscarfechaform.is_valid():
-            desde = buscarfechaform.cleaned_data['desde']
-            hasta = buscarfechaform.cleaned_data['hasta']
+        buscarfecha_ingresoform =Buscarproducto_v(request.POST or None)
+        if buscarfecha_ingresoform.is_valid():
+           # desde = buscarfecha_ingresoform.cleaned_data['desde']
+            herencia = buscarfecha_ingresoform.cleaned_data['herencia']
 
-            factura_p = factura.objects.filter(fecha_creacion__range=(desde, hasta))
+            factura_p = factura.objects.filter(producto_v__descripcion__icontains= herencia)
     else:
         factura_p = factura.objects.all()
 
-    return render(request, "factura/consultar_factura.html", {'factura_ls': factura_p, ' buscarporfecha_facturacion':  buscarfechaform})
+    return render(request, "factura/consultar_factura.html", {'factura_ls': factura_p, 'buscarfecha_ingreso':  buscarfecha_ingresoform})
 
 
+@login_required(None, "", 'login')
 def eliminar_factura (request,id):
     if request.method == "POST":
         facturas = get_object_or_404(factura, pk=id)
@@ -901,6 +965,8 @@ def eliminar_factura (request,id):
 
     return render(request, "factura/eliminar_factura.html", {'facturaForm': facturaForm})
 
+
+@login_required(None, "", 'login')
 def modificar_factura (request,id):
     if request.method == "POST":
         facturas =  get_object_or_404(factura, pk=id)
@@ -916,9 +982,15 @@ def modificar_factura (request,id):
 
     return render(request, "factura/modificar_factura.html", {'facturaForm': facturaForm})
 
+
+
+
+
 ##-------------- producto/ -------------##
 
+@login_required(None, "", 'login')
 def crear_producto (request):
+
     if request.method == "POST":
         productoForm = ProductoForm(request.POST)
         if productoForm.is_valid():
@@ -931,22 +1003,24 @@ def crear_producto (request):
 
     return render(request, "producto/crear_producto.html", {'producto_c': productoForm})
 
-
+@login_required(None, "", 'login')
 def consultar_producto (request):
-    buscarfechaform = Buscar_por_fecha()
+    buscarfecha_ingresoform = Buscar_por_fecha()
     producto_p = None
 
     if request.method == "POST":
-        buscarfechaform = Buscar_por_fecha(request.POST or None)
-        if buscarfechaform.is_valid():
-            desde = buscarfechaform.cleaned_data['desde']
-            hasta = buscarfechaform.cleaned_data['hasta']
+        buscarfecha_ingresoform = Buscar_por_fecha(request.POST or None)
+        if buscarfecha_ingresoform.is_valid():
+            desde = buscarfecha_ingresoform.cleaned_data['desde']
+            hasta = buscarfecha_ingresoform.cleaned_data['hasta']
 
             producto_p = producto.objects.filter(fecha_creacion__range=(desde, hasta))
     else:
         producto_p = producto.objects.all()
-    return render(request, "producto/consultar_producto.html", {'producto_ls': producto_p, ' buscar_fecha': buscarfechaform})
 
+    return render(request, "producto/consultar_producto.html", {'producto_ls': producto_p, 'buscarfecha_ingreso': buscarfecha_ingresoform})
+
+@login_required(None, "", 'login')
 def eliminar_producto (request):
     if request.method == "POST":
         productos = get_object_or_404(producto, pk=id)
@@ -964,6 +1038,7 @@ def eliminar_producto (request):
 
 
 
+@login_required(None, "", 'login')
 def modificar_producto (request):
     if request.method == "POST":
         productos = get_object_or_404(producto, pk=id)
@@ -981,8 +1056,12 @@ def modificar_producto (request):
 
 
 
+
+
+
 ##-------------- tipo_de_documento -------------##
 
+@login_required(None, "", 'login')
 def crear_tipo_de_documento (request):
     if request.method == "POST":
         tipo_de_documentoForm = Tipo_de_documentoForm(request.POST)
@@ -997,6 +1076,7 @@ def crear_tipo_de_documento (request):
     return render(request, "tipo_de_documento/crear_tipo_de_documento.html", {'tipo_de_documento' : tipo_de_documentoForm})
 
 
+@login_required(None, "", 'login')
 def consultar_tipo_de_documento (request):
     buscartipo_de_documento = Buscarportipo_de_documento()
     tipo_de_documento_p = None
@@ -1013,6 +1093,7 @@ def consultar_tipo_de_documento (request):
     return render(request, "tipo_de_documento/consultar_tipo_de_documento.html", {'tipo_de_documento_ls': tipo_de_documento_p,'buscarportipo_de_documento':buscartipo_de_documento})
 
 
+@login_required(None, "", 'login')
 def eliminar_tipo_de_documento (request,id):
     if request.method == "POST":
         Tipo_de_documentos = get_object_or_404(tipo_de_documento, pk=id)
@@ -1030,6 +1111,7 @@ def eliminar_tipo_de_documento (request,id):
     return render(request, "tipo_de_documento/eliminar_tipo_de_documento.html", {'tipo_de_documento' : tipo_de_documentoForm})
 
 
+@login_required(None, "", 'login')
 def modificar_tipo_de_documento (request,id):
     if request.method == "POST":
         tipo_de_documentos = get_object_or_404(tipo_de_documento, pk=id)
@@ -1041,9 +1123,6 @@ def modificar_tipo_de_documento (request,id):
     else:
         tipo_de_documentos = get_object_or_404(tipo_de_documento, pk=id)
         tipo_de_documentoForm = Tipo_de_documentoForm(request.POST or None, instance=tipo_de_documentos)
-
-
-
 
     return render(request, "tipo_de_documento/modificar_tipo_de_documento.html", {'tipo_de_documento' : tipo_de_documentoForm})
 
